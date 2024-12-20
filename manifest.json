@@ -6,5 +6,9 @@
     "icons": {
       "48": "images/book-48.png",
       "128": "images/book-128.png"
+    },
+    "action": {
+        "default_popup": "index.html",
+        "default_title": "Definiton Addition"
     }
 }
