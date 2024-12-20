@@ -1,0 +1,10 @@
+{
+    "manifest_version": 3,
+    "name": "Definiton Addition",
+    "version": "1.0.0",
+    "description": "An extension to add definition to database",
+    "icons": {
+      "48": "images/book-48.png",
+      "128": "images/book-128.png"
+    }
+}
