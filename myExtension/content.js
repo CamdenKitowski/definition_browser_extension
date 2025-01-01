@@ -1,5 +1,5 @@
 let buttonElement = document.getElementById('addDefinitionButton');
-
+console.log('starting up');
 function handleButtonClick() {
     console.log('Button was clicked');
     fetch('http://127.0.0.1:5000/add_definition', {

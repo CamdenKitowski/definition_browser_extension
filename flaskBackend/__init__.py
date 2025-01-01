@@ -1,6 +1,7 @@
 import os
 from flask import Flask
 from flask_mysqldb import MySQL
+from flask_cors import CORS
 
 from . import definitions
 
@@ -19,7 +20,8 @@ def create_app(test_config=None):
     mysql = MySQL(app)
     app.mysql = mysql
     app.register_blueprint(definitions.bp)
-    
+    CORS(app)
+
     try:
         os.makedirs(app.instance_path)
     except OSError:
