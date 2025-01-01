@@ -7,6 +7,10 @@ from .db import get_db
 
 bp = Blueprint('definitions', __name__)
 
+@bp.route('/')
+def index():
+    return render_template('index.html')
+
 @bp.route('/add_definition', methods=['POST'])
 def add_defintion():
     word = 'other'
