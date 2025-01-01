@@ -15,6 +15,7 @@ function handleButtonClick() {
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
+        console.log(response, ' the response');
         return response.json();
     })
     .then(data => {
