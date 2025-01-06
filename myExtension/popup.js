@@ -60,7 +60,7 @@ function handleMessageResponse(response) {
     uploadtoDatabase(word, definition, pronunciation, pos);
     console.log('finished uploading');
 
-    const msg = document.createElement("h3");
+    const msg = document.createElement("h4");
     msg.innerHTML = 'Added: ' + response.word;
     document.getElementById("main").appendChild(msg);
 }
