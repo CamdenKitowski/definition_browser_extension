@@ -1,14 +1,29 @@
 {
     "manifest_version": 3,
+
     "name": "Definiton Addition",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "description": "An extension to add definition to database",
+    
+    "action": {
+        "default_popup": "popup.html",
+        "default_title": "Definiton Addition"
+    },
+
+    "content_scripts": [
+      {
+        "matches": ["<all_urls>"],
+        "js": ["content.js"],
+        "run_at": "document_end"
+      }
+    ],
+
+    "permissions": ["activeTab"],
+
     "icons": {
       "48": "images/book-48.png",
       "128": "images/book-128.png"
     },
-    "action": {
-        "default_popup": "index.html",
-        "default_title": "Definiton Addition"
-    }
+    "host_permissions": ["<all_urls>"]
+    
 }
