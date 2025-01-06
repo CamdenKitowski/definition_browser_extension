@@ -1,26 +1,28 @@
-let buttonElement = document.getElementById('addDefinitionButton');
-console.log('starting up');
-function handleButtonClick() {
-    console.log('Button was clicked');
-    fetch('http://127.0.0.1:5000/add_definition', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            username: 'example'
-        })
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        console.log(response, ' the response');
-        return response.json();
-    })
-    .then(data => {
-        console.log('success', data);
-    });
-}
+console.log('the beginning');
 
-buttonElement.addEventListener('click', handleButtonClick);
+chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
+
+    console.log(request.data);
+
+    // Scrape elements
+    let wordClass = document.querySelector('.RES9jf.xWMiCc.JgzqYd');
+    let definitionClass = document.querySelector('.PZPZlf[data-attrid="SenseDefinition"]');
+
+    console.log(" HTML for word: ", wordClass);
+    console.log('HTML for definition: ', definitionClass);
+
+    // Get Word
+    let wordElement = wordClass.querySelector('span[data-dobid="hdw"]');
+    let word = wordElement.textContent;
+    word = word.replace(/·/g, '').trim();
+    console.log('Word:', word);
+    
+    // Get Defintion
+    const dataPsd = definitionClass.getAttribute('data-psd');
+    const definition = dataPsd.split('~:&')[1];
+    console.log('Definition:', definition.trim());
+    
+    // send res back to the sender (the popup.js)
+    sendResponse({word, definition})
+
+});
