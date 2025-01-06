@@ -1,6 +1,6 @@
 console.log('starting up');
 
-function uploadtoDatabase(word, definition) {
+function uploadtoDatabase(word, definition, pronunciation, pos) {
     console.log('Button was clicked');
     fetch('http://127.0.0.1:5000/add_definition', {
         method: 'POST',
@@ -9,7 +9,9 @@ function uploadtoDatabase(word, definition) {
         },
         body: JSON.stringify({
             word: word,
-            definition: definition
+            definition: definition,
+            pronunciation: pronunciation,
+            pos: pos
         })
     })
     .then(response => {
@@ -32,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function initializeScrapeButton() {
-    const scrapeButton = document.getElementById('scrapeButton');
+    const scrapeButton = document.getElementById('addDefinitionButton');
     scrapeButton.addEventListener('click', handleScrapeButtonClick);
 }
 
@@ -47,17 +49,18 @@ function sendMessageToTab(tabId) {
 }
 
 function handleMessageResponse(response) {
-    // const msg = document.createElement("h3");
-    // msg.innerHTML = 'Scraped: ' + response;
-    // document.getElementById("main").appendChild(msg);
+    
 
     console.log('Scraped data:', response);
     const word = response.word;
     const definition = response.definition;
+    const pronunciation = response.pronunciation;
+    const pos = response.pos;
 
-    uploadtoDatabase(word, definition);
+    uploadtoDatabase(word, definition, pronunciation, pos);
     console.log('finished uploading');
-}
 
-let uploadToDatabase = document.getElementById('addDefinitionButton');
-uploadToDatabase.addEventListener('click', handleButtonClick);
+    const msg = document.createElement("h3");
+    msg.innerHTML = 'Added: ' + response.word;
+    document.getElementById("main").appendChild(msg);
+}

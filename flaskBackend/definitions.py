@@ -16,12 +16,15 @@ def add_defintion():
 
     word = data.get('word')
     definition = data.get('definition')
+    pronunciation = data.get('pronunciation')
+    pos = data.get('pos')
+
     try:
         db = get_db()
         connection = current_app.mysql.connection
 
-        query = 'INSERT INTO definitions (word, definition) VALUES (%s, %s)'
-        db.execute(query, (word, definition))
+        query = 'INSERT INTO definitions (word, definition, part_of_speech, pronunciation) VALUES (%s, %s, %s, %s)'
+        db.execute(query, (word, definition, pos, pronunciation))
         connection.commit()
         return jsonify({"message": "Definition added successfully!", "word": word, "definition": definition}), 201
     except Exception as e:
