@@ -26,12 +26,12 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
     const definition = dataPsd.split('~:&')[1];
     console.log('Definition:', definition);
 
-    // Get part of speech
+    // Get Part of speech
     let rawPOS = posClass.querySelector('span.YrbPuc');
     let pos = rawPOS.textContent.trim()
     console.log('Part of Speech:', pos);
     
-    // Pronunciation
+    // Get Pronunciation
     let rawPronunciation = pronunciationClass.querySelector('span.wHYlTd');
     let cleanedPronunciation = rawPronunciation.textContent.trim();
     let pronunciation = cleanedPronunciation.replace(/\//g, '');
