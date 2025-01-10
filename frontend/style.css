@@ -1,4 +1,4 @@
-/* body {
+body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
@@ -14,7 +14,26 @@
 }
 
 h1 {
-    color: #2c3e50;
+    font-size: 2.5rem; /* Large font size */
+    font-weight: bold; /* Bold for emphasis */
+    color: #2c3e50; /* Dark slate blue color */
+    text-transform: uppercase; /* Makes the text all caps */
+    letter-spacing: 2px; /* Adds spacing between letters */
+    margin-bottom: 20px; /* Space below the title */
+    margin-right: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    position: relative; /* For decorative underline */
+    display: inline-block; /* Ensures underline only spans the text width */
+}
+
+h1::after {
+    content: ''; /* Decorative underline */
+    display: block;
+    width: 50%; /* Half the width of the text */
+    height: 4px; /* Thickness of the underline */
+    background-color: #16a085; /* Matches button color */
+    margin: 8px auto 0; /* Centered with space */
+    border-radius: 2px; /* Smooth edges */
 }
 
 p {
@@ -25,7 +44,7 @@ p {
 .card-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 12px;
     justify-content: center;
 }
 
@@ -35,10 +54,13 @@ p {
     border-radius: 8px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 300px;
+    max-width: 250px;
     padding: 20px;
     text-align: left;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.5s ease-out forwards;
 }
 
 .card:hover {
@@ -49,6 +71,7 @@ p {
 .card h2 {
     font-size: 1.5rem;
     color: #2c3e50;
+    margin-top: 10px;
     margin-bottom: 10px;
 }
 
@@ -66,4 +89,42 @@ p {
 .card .pronunciation {
     font-weight: bold;
     color: #16a085;
-} */
+}
+
+button {
+    background-color: #16a085; /* Blue color */
+    color: #fff; /* White text */
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    margin: 10px;
+    margin-bottom: 50px;
+    margin-left: 20px;
+}
+
+.button .sortButton {
+    padding-left: 100px;
+}
+
+button:hover {
+    background-color: #42963d; /* Slightly darker blue on hover */
+    box-shadow: 0px 6px 8px rgba(0, 0, 0, 0.2);
+}
+
+button:active {
+    transform: scale(0.98); /* Slight click effect */
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

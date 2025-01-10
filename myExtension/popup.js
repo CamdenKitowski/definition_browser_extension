@@ -1,4 +1,4 @@
-console.log('starting up');
+console.log('starting up popup.js');
 
 function uploadtoDatabase(word, definition, pronunciation, pos) {
     console.log('Button was clicked');

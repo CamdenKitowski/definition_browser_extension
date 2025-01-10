@@ -1,4 +1,4 @@
-console.log('the beginning');
+console.log('starting up content.js');
 
 chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
 
