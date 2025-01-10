@@ -52,7 +52,7 @@ document.getElementById('randomizeButton').addEventListener('click', async () =>
     const randomizeData = randomizeArray(data);
     populateCards(randomizeData);
 });
-    
+
 getCardData().then(data => {
     if (Array.isArray(data)) {
         populateCards(data);
