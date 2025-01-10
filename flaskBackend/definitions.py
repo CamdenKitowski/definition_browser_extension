@@ -26,8 +26,21 @@ def add_defintion():
         query = 'INSERT INTO definitions (word, definition, part_of_speech, pronunciation) VALUES (%s, %s, %s, %s)'
         db.execute(query, (word, definition, pos, pronunciation))
         connection.commit()
+        print('Added successfully')
         return jsonify({"message": "Definition added successfully!", "word": word, "definition": definition}), 201
     except Exception as e:
         return jsonify({"error": str(e)}), 500
     
+@bp.route('/get_definitions', methods=['GET'])
+def get_definition():
+    
+    db = get_db()
 
+    try: 
+        db.execute(
+            'SELECT * FROM definitions'
+        )
+        definitions = db.fetchall()
+        return jsonify(definitions)
+    except Exception as e:
+        return 'there is an error' 
