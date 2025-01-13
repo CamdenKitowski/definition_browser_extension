@@ -48,7 +48,23 @@ function sendMessageToTab(tabId) {
     chrome.tabs.sendMessage(tabId, {data: "Trigger Listener" }, handleMessageResponse)
 }
 
-function handleMessageResponse(response) {
+async function checkDup(word) {
+    try {
+        const response = await fetch(`http://127.0.0.1:5000/check_duplicate?word=${encodeURIComponent(word)}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json();
+        console.log(data, ' this is hte data');
+        console.log(data.exists, ' return statement')
+        return data.exists;
+    } catch (error) {
+        console.error('Error checking for duplicate:', error);
+        return false;
+    }
+}
+
+async function handleMessageResponse(response) {
     
 
     console.log('Scraped data:', response);
@@ -56,6 +72,19 @@ function handleMessageResponse(response) {
     const definition = response.definition;
     const pronunciation = response.pronunciation;
     const pos = response.pos;
+
+    const isDup = await checkDup(word);
+
+    // Check if the word already exists in the database
+    if (isDup) {
+        console.log('ERROR: Duplicate word detected');
+        errorMsg = document.createElement('h4');
+        // errorMsg.id = 'error-message';
+        errorMsg.style.color = "red";
+        errorMsg.innerHTML = `Error: '${word}' already exists in the database.`;
+        document.getElementById("main").appendChild(errorMsg);
+        return; // Exit the function
+    }
 
     uploadtoDatabase(word, definition, pronunciation, pos);
     console.log('finished uploading');
