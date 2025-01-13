@@ -25,6 +25,10 @@ async function getCardData() {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const data = await response.json();
+
+        if (!Array.isArray(data)) {
+            throw new Error("Unexpected response format: Expected an array.");
+        }
         console.log('Data: ', data);
         data.sort((a, b) => a[1].localeCompare(b[1]));
         return data;
@@ -42,16 +46,28 @@ function randomizeArray(array) {
     return array;
 }
 
-document.getElementById('sortButton').addEventListener('click', async () => {
-    const data = await getCardData();
-    populateCards(data);
-});
+function debounce(func, delay) {
+    let timer;
+    return function (...args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => func.apply(this, args), delay);
+    };
+}
 
-document.getElementById('randomizeButton').addEventListener('click', async () => {
-    const data = await getCardData();
-    const randomizeData = randomizeArray(data);
-    populateCards(randomizeData);
-});
+document.getElementById('sortButton').addEventListener('click', 
+    debounce(async () => {
+        const data = await getCardData();
+        populateCards(data);
+    }, 200)
+);
+
+document.getElementById('randomizeButton').addEventListener('click', 
+    debounce(async () => {
+        const data = await getCardData();
+        const randomizeData = randomizeArray(data);
+        populateCards(randomizeData);
+    }, 200)
+);
 
 getCardData().then(data => {
     if (Array.isArray(data)) {

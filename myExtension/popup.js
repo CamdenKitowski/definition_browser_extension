@@ -55,8 +55,6 @@ async function checkDup(word) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
         const data = await response.json();
-        console.log(data, ' this is hte data');
-        console.log(data.exists, ' return statement')
         return data.exists;
     } catch (error) {
         console.error('Error checking for duplicate:', error);
@@ -68,10 +66,23 @@ async function handleMessageResponse(response) {
     
 
     console.log('Scraped data:', response);
+
+    if (!response || !response.word || !response.definition) {
+        console.error('Invalid scraped data:', response);
+        const errorMsg = document.createElement('h4');
+        errorMsg.style.color = "red";
+        errorMsg.innerHTML = "Error: Invalid data received.";
+        document.getElementById("main").appendChild(errorMsg);
+        return;
+    }
+
     const word = response.word;
     const definition = response.definition;
     const pronunciation = response.pronunciation;
     const pos = response.pos;
+
+    
+
 
     const isDup = await checkDup(word);
 
@@ -79,11 +90,10 @@ async function handleMessageResponse(response) {
     if (isDup) {
         console.log('ERROR: Duplicate word detected');
         errorMsg = document.createElement('h4');
-        // errorMsg.id = 'error-message';
         errorMsg.style.color = "red";
         errorMsg.innerHTML = `Error: '${word}' already exists in the database.`;
         document.getElementById("main").appendChild(errorMsg);
-        return; // Exit the function
+        return;
     }
 
     uploadtoDatabase(word, definition, pronunciation, pos);

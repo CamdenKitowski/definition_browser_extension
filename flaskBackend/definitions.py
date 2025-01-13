@@ -11,18 +11,15 @@ bp = Blueprint('definitions', __name__)
 def add_defintion():
 
     data = request.get_json()
-
-    print(data)
-
     word = data.get('word')
     definition = data.get('definition')
     pronunciation = data.get('pronunciation')
     pos = data.get('pos')
+    print(data)
 
     try:
         db = get_db()
         connection = current_app.mysql.connection
-
         query = 'INSERT INTO definitions (word, definition, part_of_speech, pronunciation) VALUES (%s, %s, %s, %s)'
         db.execute(query, (word, definition, pos, pronunciation))
         connection.commit()
@@ -41,21 +38,19 @@ def get_definition():
             'SELECT * FROM definitions'
         )
         definitions = db.fetchall()
-        return jsonify(definitions)
+        return jsonify(definitions), 200
     except Exception as e:
-        return 'there is an error' 
+        return jsonify({"error": str(e)}), 500 
 
 
 @bp.route('/check_duplicate', methods=['GET'])
 def check_dup():
     
     word = request.args.get('word')
-    print(word)
-    if not word:
-        return jsonify({"error": "Missing 'word' parameter"}), 400
-
     db = get_db()
 
+    if not word:
+        return jsonify({"error": "Missing 'word' parameter"}), 400
 
     try: 
         query = "SELECT COUNT(*) FROM definitions WHERE word = %s"
