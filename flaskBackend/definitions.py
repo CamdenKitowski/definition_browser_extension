@@ -44,3 +44,25 @@ def get_definition():
         return jsonify(definitions)
     except Exception as e:
         return 'there is an error' 
+
+
+@bp.route('/check_duplicate', methods=['GET'])
+def check_dup():
+    
+    word = request.args.get('word')
+    print(word)
+    if not word:
+        return jsonify({"error": "Missing 'word' parameter"}), 400
+
+    db = get_db()
+
+
+    try: 
+        query = "SELECT COUNT(*) FROM definitions WHERE word = %s"
+        db.execute(query, (word,))
+        count = db.fetchone()[0]
+
+        return jsonify({"exists": count > 0})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+    
