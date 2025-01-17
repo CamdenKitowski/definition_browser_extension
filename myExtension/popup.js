@@ -2,7 +2,7 @@ console.log('starting up popup.js');
 
 function uploadtoDatabase(word, definition, pronunciation, pos) {
     console.log('Button was clicked');
-    fetch('http://127.0.0.1:5000/add_definition', {
+    fetch('http://127.0.0.1:8080/add_definition', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -50,7 +50,7 @@ function sendMessageToTab(tabId) {
 
 async function checkDup(word) {
     try {
-        const response = await fetch(`http://127.0.0.1:5000/check_duplicate?word=${encodeURIComponent(word)}`);
+        const response = await fetch(`http://127.0.0.1:8080/check_duplicate?word=${encodeURIComponent(word)}`);
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
