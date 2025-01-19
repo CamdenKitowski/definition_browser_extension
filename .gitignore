@@ -1,3 +1,6 @@
 .venv/
 __pycache__/
 .vscode
+v0.zip
+v1.zip
+.ebextensions
