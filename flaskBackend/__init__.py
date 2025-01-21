@@ -11,11 +11,11 @@ def create_app(test_config=None):
     app.config.from_mapping(
         SECRET_KEY='dev',
         MYSQL_HOST='127.0.0.1',
-        MYSQL_USER= 'camkit',
+        MYSQL_USER= 'camkitsql',
         MYSQL_PASSWORD='camkitpass',
         MYSQL_DB='definition_db',
     )
-
+    print('---- working now -----')
     # initialize database
     mysql = MySQL(app)
     app.mysql = mysql

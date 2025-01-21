@@ -20,7 +20,7 @@ function populateCards(data) {
 
 async function getCardData() {
     try {
-        const response = await fetch('http://127.0.0.1:5000/get_definitions');
+        const response = await fetch('http://localhost:8000/get_definitions');
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
