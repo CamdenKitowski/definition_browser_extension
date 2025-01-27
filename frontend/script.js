@@ -5,7 +5,7 @@ function populateCards(data) {
 
     cardContainer.innerHTML = ``;
     data.forEach(item => {
-        const [id, word, definition, part_of_speech, pronunciation] = item
+        const { id, word, definition, part_of_speech, pronunciation } = item
         const card = document.createElement('div');
         card.classList.add('card');
         card.innerHTML = `
@@ -30,7 +30,7 @@ async function getCardData() {
             throw new Error("Unexpected response format: Expected an array.");
         }
         console.log('Data: ', data);
-        data.sort((a, b) => a[1].localeCompare(b[1]));
+        data.sort((a, b) => a.word.localeCompare(b.word));
         return data;
     } catch (error) {
         console.error('Error fetching definitions:', error);
