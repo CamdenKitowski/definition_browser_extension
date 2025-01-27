@@ -1,5 +1,3 @@
-import os
-
 class Config:
     # MySQL connection parameters for RDS
     MYSQL_HOST = '***REDACTED***'  # RDS endpoint
