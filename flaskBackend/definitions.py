@@ -1,8 +1,6 @@
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for, jsonify, current_app
+    Blueprint, request, jsonify, current_app
 )
-from werkzeug.exceptions import abort
-from datetime import datetime
 from .db import get_db
 
 bp = Blueprint('definitions', __name__)

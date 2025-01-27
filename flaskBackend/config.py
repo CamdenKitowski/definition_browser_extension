@@ -1,5 +1,3 @@
-import os
-
 class Config:
     # MySQL connection parameters for RDS
     MYSQL_HOST = 'definitions-aws.cdi4kc6087j1.us-east-1.rds.amazonaws.com'  # RDS endpoint
