@@ -30,7 +30,6 @@ def add_defintion():
 def get_definition():
     
     db = get_db()
-
     try: 
         db.execute(
             'SELECT * FROM definitions'
@@ -43,18 +42,18 @@ def get_definition():
 
 @bp.route('/check_duplicate', methods=['GET'])
 def check_dup():
-    
+
     word = request.args.get('word')
     db = get_db()
 
     if not word:
         return jsonify({"error": "Missing 'word' parameter"}), 400
-
     try: 
         query = "SELECT COUNT(*) FROM definitions WHERE word = %s"
         db.execute(query, (word,))
-        count = db.fetchone()[0]
-
+        result = db.fetchone()
+        count = list(result.values())[0]
+        
         return jsonify({"exists": count > 0})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
