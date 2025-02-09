@@ -42,10 +42,12 @@ p {
 }
 
 .card-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Dynamic columns */
+    gap: 20px;
+    width: 95%;
+    max-width: 1400px; /* Adjust max width to allow more cards */
+    margin: 0 auto; 
 }
 
 .card {
@@ -53,8 +55,6 @@ p {
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 250px;
     padding: 20px;
     text-align: left;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -120,7 +120,6 @@ button:active {
     transform: scale(0.98); /* Slight click effect */
     box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
 }
-
 
 @keyframes fadeInUp {
     to {
