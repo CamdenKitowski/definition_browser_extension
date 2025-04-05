@@ -82,9 +82,8 @@ async function handleMessageResponse(response) {
     const pronunciation = response.pronunciation;
     const pos = response.pos;
 
-    const isDup = await checkDup(word);
-
     // Check if the word already exists in the database
+    const isDup = await checkDup(word);
     if (isDup) {
         console.log('ERROR: Duplicate word detected');
         errorMsg = document.createElement('h4');
