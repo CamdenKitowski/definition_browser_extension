@@ -1,3 +1,4 @@
+// This is the popup
 console.log('starting up popup.js');
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -65,7 +66,6 @@ function uploadtoDatabase(word, definition, pronunciation, pos) {
 
 async function handleMessageResponse(response) {
     
-
     console.log('Scraped data:', response);
 
     if (!response || !response.word || !response.definition) {
