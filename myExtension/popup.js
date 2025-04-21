@@ -22,7 +22,7 @@ function sendMessageToTab(tabId) {
 
 async function checkDup(word) {
     try {
-        const response = await fetch(`http://54.205.237.18:8080/check_duplicate?word=${encodeURIComponent(word)}`);
+        const response = await fetch(`https://definitionstation.info/api/check_duplicate?word=${encodeURIComponent(word)}`);
         if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -37,7 +37,7 @@ async function checkDup(word) {
 
 function uploadtoDatabase(word, definition, pronunciation, pos) {
     console.log('Button was clicked');
-    fetch('http://54.205.237.18:8080/add_definition', {
+    fetch('https://definitionstation.info/api/add_definition', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

@@ -22,7 +22,8 @@
         "activeTab",
         "http://localhost:8080/*",
         "http://127.0.0.1:8080/*",
-        "http://54.205.237.18:8080/*"
+        "https://www.definitionstation.info/",
+        "http://54.167.31.201:8080/*"
     ],
 
     "icons": {
