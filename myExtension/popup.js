@@ -1,8 +1,43 @@
+// This is the popup
 console.log('starting up popup.js');
+
+document.addEventListener('DOMContentLoaded', function() {
+    initializeScrapeButton();
+});
+
+function initializeScrapeButton() {
+    const scrapeButton = document.getElementById('addDefinitionButton');
+    scrapeButton.addEventListener('click', handleScrapeButtonClick);
+}
+
+function handleScrapeButtonClick() {
+    chrome.tabs.query({active: true, currentWindow:true}, tabs => {
+        sendMessageToTab(tabs[0].id);
+    });
+}
+
+function sendMessageToTab(tabId) {
+    chrome.tabs.sendMessage(tabId, {data: "Trigger Listener" }, handleMessageResponse)
+}
+
+async function checkDup(word) {
+    try {
+        const response = await fetch(`https://definitionstation.info/api/check_duplicate?word=${encodeURIComponent(word)}`);
+        if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json();
+        return data.exists;
+    } catch (error) {
+        console.error('Error checking for duplicate:', error);
+        return false;
+    }
+}
+
 
 function uploadtoDatabase(word, definition, pronunciation, pos) {
     console.log('Button was clicked');
-    fetch('http://127.0.0.1:8080/add_definition', {
+    fetch('https://definitionstation.info/api/add_definition', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -29,42 +64,8 @@ function uploadtoDatabase(word, definition, pronunciation, pos) {
     });
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    initializeScrapeButton();
-});
-
-function initializeScrapeButton() {
-    const scrapeButton = document.getElementById('addDefinitionButton');
-    scrapeButton.addEventListener('click', handleScrapeButtonClick);
-}
-
-function handleScrapeButtonClick() {
-    chrome.tabs.query({active: true, currentWindow:true}, tabs => {
-        sendMessageToTab(tabs[0].id);
-    });
-}
-
-function sendMessageToTab(tabId) {
-    chrome.tabs.sendMessage(tabId, {data: "Trigger Listener" }, handleMessageResponse)
-}
-
-async function checkDup(word) {
-    try {
-        const response = await fetch(`http://127.0.0.1:8080/check_duplicate?word=${encodeURIComponent(word)}`);
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        const data = await response.json();
-        return data.exists;
-    } catch (error) {
-        console.error('Error checking for duplicate:', error);
-        return false;
-    }
-}
-
 async function handleMessageResponse(response) {
     
-
     console.log('Scraped data:', response);
 
     if (!response || !response.word || !response.definition) {
@@ -81,12 +82,8 @@ async function handleMessageResponse(response) {
     const pronunciation = response.pronunciation;
     const pos = response.pos;
 
-    
-
-
-    const isDup = await checkDup(word);
-
     // Check if the word already exists in the database
+    const isDup = await checkDup(word);
     if (isDup) {
         console.log('ERROR: Duplicate word detected');
         errorMsg = document.createElement('h4');

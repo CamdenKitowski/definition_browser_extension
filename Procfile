@@ -1,1 +1,1 @@
-web: waitress-serve --port=$PORT flaskBackend:app
+web: gunicorn -w 4 -b 0.0.0.0:$PORT "flaskBackend:create_app()"
