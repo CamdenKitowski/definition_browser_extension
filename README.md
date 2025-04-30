@@ -9,7 +9,6 @@ The Chrome Extension was built using the Chrome developer mode with the myExtens
 ![image](https://github.com/user-attachments/assets/8130a763-3f2f-4a45-960b-3b721602fff0)
 
 ## Backend
-The backend consists of an AWS EC2 instance, nginx, gunicorn, flask, and AWS RDS. All traffic runs through nginx. Ngnix handles all requests and serves the HTML, CSS, JS code. The web application uses HTTPS. Lets's Encrypt generated SSL certificates. The nginx.conf was heavily manipulated in the entire process. Gunicorn manages the requests from ngnix with the gunicorn workers. There are four works working on port 8080. Gunicorn runs on top of Flask. Flask recevies these requests and handles these POST/GET requests accordingly. Flask updates or receives data from the AWS RDS. 
-
+The backend consists of an AWS EC2 instance, nginx, gunicorn, flask, and AWS RDS. Nginx acts as a reverse proxy handling all requests and serves the HTML, CSS, JS code. Nginx routes all traffic to gunicorn on port 8080. The web application uses HTTPS. Lets's Encrypt generated SSL certificates. The nginx.conf was manipulated in the entire process. Gunicorn runs as a WSGI (web server gateway interface). It is a standarized way for python application to communicate with web servers. There are four gunicorn working to handle concurrent requests relatively efficiently. Gunicorn runs on top of Flask. Flask recevies these requests and handles these POST/GET requests accordingly. Flask updates/receives data from the AWS RDS. 
 
  ![Architecture Diagram](https://github.com/user-attachments/assets/30cbac00-1f6e-4e26-be0a-49534802bfb5)
