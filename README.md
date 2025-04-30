@@ -3,6 +3,9 @@
 
 The webpage displays cards of data. Each card has a word, definition, part of speech, and pronunciation. The user can sort or randomize the words using the buttons at the top of the page.
 
+![definitionStationWebPage](https://github.com/user-attachments/assets/06450908-7a56-4ca7-a23b-de0f3dba2a94)
+
+
 ## Chrome Extension
 The Chrome Extension was built using the Chrome developer mode with the myExtension folder. The chrome extension scrapes the current web looking for the word, definition, part of speech, and pronunciation using the add definition button. It must use the google webpage when searching for a word. Duplicate words will not be allowed. These attributes are processed and populated to the webpage. 
 
