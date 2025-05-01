@@ -12,7 +12,7 @@ The Chrome extension was built using the Chrome developer mode. The myExtension 
 ![image](https://github.com/user-attachments/assets/8130a763-3f2f-4a45-960b-3b721602fff0)
 
 ## Backend
-The backend of the Definition Browser Extension is hosted on an **AWS EC2 instance** (Amazon Linux) and leverages **Nginx**, **Gunicorn**, **Flask**, and **AWS RDS** to deliver a secure and scalable web application.
+The backend is hosted on a singular **AWS EC2 instance** (Amazon Linux) and leverages **Nginx**, **Gunicorn**, **Flask**, and **AWS RDS** to deliver a secure and scalable web application.
 
 ### Architecture
 
