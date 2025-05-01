@@ -12,6 +12,27 @@ The Chrome extension was built using the Chrome developer mode. The myExtension 
 ![image](https://github.com/user-attachments/assets/8130a763-3f2f-4a45-960b-3b721602fff0)
 
 ## Backend
-The backend consists of an AWS EC2 instance, nginx, gunicorn, flask, and AWS RDS. Nginx acts as a reverse proxy handling all requests and serves the HTML, CSS, JS code. Nginx routes all traffic to gunicorn on port 8080. The web application uses HTTPS. Lets's Encrypt generated the SSL certificates. The nginx.conf was manipulated for this process. Gunicorn runs as a WSGI (web server gateway interface). It is a standarized way for python application to communicate with web servers. There are four gunicorn workers to handle concurrent requests relatively efficiently. Gunicorn runs on top of Flask. Flask recevies these requests and handles these POST/GET requests accordingly. Flask updates/receives data from the AWS RDS. 
+The backend of the Definition Browser Extension is hosted on an **AWS EC2 instance** (Amazon Linux) and leverages **Nginx**, **Gunicorn**, **Flask**, and **AWS RDS** to deliver a secure and scalable web application.
+
+### Architecture
+
+- **Nginx**:
+   - Serves as a reverse proxy handling all HTTP/HTTPS requests
+   - Uses Let's Encrypt for SSL certificates
+   - Serves the HTML, CSS, and JS files
+   - Ngnix routes all traffic to gunicorn
+   - Configured in the EC2 file location of `/etc/nginx/nginx.conf`
+ 
+- **Gunicorn**:
+   - Operates as a WSGI (web server gateway interface) to facilitate communication between Nginx and Flask
+   - Runs **four workers** to handle concurrent requests relatively efficiently.
+   - Listens on `0.0.0.0:8080`
+ 
+- **Flask**:
+   - Powers the API, processing CRUD operations
+   - Manages interactions between the AWS RDS MySQL Database
+
+- **AWS RDS**:
+   - Stores application data in MySQL database - word, definition, part of speech, pronunciation
 
  ![Architecture Diagram](https://github.com/user-attachments/assets/30cbac00-1f6e-4e26-be0a-49534802bfb5)
