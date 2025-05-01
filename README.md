@@ -21,7 +21,7 @@ The backend is hosted on a singular **AWS EC2 instance** (Amazon Linux) and leve
    - Uses Let's Encrypt for SSL certificates
    - Serves the HTML, CSS, and JS files
    - Ngnix routes all traffic to gunicorn
-   - Configured in the EC2 file location of `/etc/nginx/nginx.conf`
+   - Configured in the EC2 file location - `/etc/nginx/nginx.conf`
  
 - **Gunicorn**:
    - Operates as a WSGI (web server gateway interface) to facilitate communication between Nginx and Flask
