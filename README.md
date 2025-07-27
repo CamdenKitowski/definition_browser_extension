@@ -1,4 +1,4 @@
-# Definition-Browser-Extension
+# Definition Browser Extension
 **Website:** https://www.definitionstation.info/
 
 The webpage displays cards of data. Each card has a word, definition, part of speech, and pronunciation. The user can sort or randomize the words using the buttons at the top of the page.
